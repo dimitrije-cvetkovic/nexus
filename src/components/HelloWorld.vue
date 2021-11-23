@@ -58,15 +58,7 @@
         <h2 class="headline font-weight-bold mb-3">Ecosystem</h2>
 
         <v-row justify="center">
-          <a
-            v-for="(eco, i) in ecosystem"
-            :key="i"
-            :href="eco.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ eco.text }}
-          </a>
+          <v-btn block @click="getAllVehiclesYears()">Get All Vehicles</v-btn>
         </v-row>
       </v-col>
     </v-row>
@@ -129,5 +121,45 @@ export default {
       },
     ],
   }),
+
+    methods: {
+    getAllVehiclesYears() {
+            this.$axios.get('https://rateengine.ship.cars/v2/vehicles/years/?token=5cbe12fb62f4941267d623499a2a4fd5948fd3ef')
+                .then(response => {
+                    if (response.status == 200) {
+                      debugger;
+                        if (!response.data) {
+                            //(response.data.data);
+                        }
+                    }
+                })
+                .catch((e) => {
+                    console.error(e.message);
+                    console.error(e.request);
+                });
+      /* FOR SOME REASON PROXY FOR rateengine.ship.cars is not working, while easily working on other apis (e.g. https://api.github.com/)
+            // this.$axios.get(
+            //               '/api/v2/vehicles/years/',
+            //               {
+            //                 params: {
+            //                   token:JSON.stringify('5cbe12fb62f4941267d623499a2a4fd5948fd3ef')
+            //                 }
+            //               }
+            //           )
+            //           .then(response => {
+            //               if (response.status == 200) {
+            //                 debugger;
+            //                   if (!response.data) {
+            //                       //(response.data.data);
+            //                   }
+            //               }
+            //           })
+            //           .catch((e) => {
+            //               console.error(e.message);
+            //               console.error(e.request);
+            //           });
+      */
+    }
+  },
 };
 </script>
